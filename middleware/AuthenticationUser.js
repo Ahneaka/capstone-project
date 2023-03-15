@@ -14,14 +14,14 @@ function createToken(user) {
   );
 }
 
-function verification(req, res, next) {
+function verifyAToken(req, res, next) {
   try {
-    const token =
+    const passToken =
       req.cookies["RightUser"] !== null
         ? req.cookies["RightUser"]
         : "Please register";
     const isValid = null;
-    if (token !== "Please register") {
+    if (passToken !== "Please register") {
       isValid = verify(token, process.env.SECRET_KEY);
       if (isValid) {
         req.authenticated = true;
@@ -36,4 +36,4 @@ function verification(req, res, next) {
     res.status(400).json({ err: e.message });
   }
 }
-module.exports = { createToken, verification };
+module.exports = { createToken, verifyAToken };

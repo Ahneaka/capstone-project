@@ -2,208 +2,178 @@ const db = require("../config");
 const { hash, compare, hashSync } = require("bcrypt");
 const { createToken } = require("../middleware/AuthenticationUser");
 
+
 class User {
-  async createUser(req, res) {
-    const detail = req.body;
-    detail.userPass = await hash(detail.userPass, 15);
-
-    const user = {
-      userPass: detail.userPass,
-      emailAdd: detail.emailAdd,
-    };
-
-    const strQry = `
-        INSERT INTO Users
-        SET ?
-        `;
-    db.query(strQry, [detail], (err) => {
-      if (err) {
-        request.status(401).json({ err });
-      } else {
-        const token = createToken(user);
-        res.cookie("RightUser", token, {
-          httpOnly: true,
-          maxAge: 3600000,
-        });
-        request.status(200).json({ msg: "A new user has been created." });
-      }
-    });
-  }
   login(req, res) {
-    const { emailAdd, userPass } = req.body;
-    const strQry = `
-        SELECT userID, firstName, lastName, gender, emailAdd, userPass, userRole, userProfile
-        FROM Users
-        WHERE emailAdd = '${emailAdd}';
-    `;
+    const { emailAdd, password } = req.body;
+    const verifyQuery = `select userID, firstName, lastName, gender, cellphoneNumber, emailAdd, userPass, userRole, userProfile 
+    FROM Users 
+    where emailAdd = '${emailAdd}';`;
 
-    db.query(strQry, async (err, data) => {
-      if (err) throw err;
+    db.query(verifyQuery, async (err, data) => {
+      const userLog = data;
+      if (err) throw (err, console.log(err));
       if (!data || data == null) {
-        res.status(401).json({ err: "Incorrect email address" });
+        res.status(401).json({
+          err: "You entered the wrong email address",
+        });
       } else {
-        await compare(userPass, data[0].userPass, (cErr, cResult) => {
-          if (cErr) throw cErr;
-          const token = createToken({
-            userPass,
+        await compare(password, data[0].password, (cErr, cResult) => {
+          if (cErr) throw (cErr, console.log(cErr));
+          const jwToken = createToken({
             emailAdd,
-          });
-          res.cookie("RightUser", token, {
-            maxAge: 3600000,
-            httpOnly: true,
+            userPass,
           });
           if (cResult) {
             res.status(200).json({
               msg: "Logged In",
-              token,
-              result: data[0],
+              jwToken,
+              result: data,
             });
           } else {
             res.status(401).json({
-              err: "Incorrect Password, try again or register",
+              err: "You entered an invalid password or have not registered.",
             });
           }
         });
       }
     });
   }
-  updateUser(req, res) {
+  fetchUsers(req, res) {
+    const fetchAllUsersQuery = `select firstName, lastName, gender, cellphoneNumber, emailAdd, userPass, userRole, userProfile 
+    FROM Users;`;
+
+    db.query(fetchAllUsersQuery, (err, data) => {
+      if (err) throw (err, console.log(err));
+      else
+        res.status(200).json({
+          results: data,
+        });
+    });
+  }
+  fetchUser(req, res) {
+    const fetchUserQuery = `SELECT userID, firstName, lastName, gender, cellphoneNumber, emailAdd, userPass, userRole, userProfile
+             FROM Users
+            WHERE userID = ?`;
+    db.query(fetchUserQuery, [req.params.id], (err, data) => {
+      if (err) throw (err, console.log(err));
+      else
+        res.status(200).json({
+          results: data,
+        });
+    });
+  }
+  async createUser(req, res) {
     const detail = req.body;
-    if (detail.userPass != null || detail.userPass != undefined)
-      detail.userPass = hashSync(detail.userPass, 15);
-
-    const strQry = `
-        UPDATE Users 
-        SET ?
-        WHERE userID = ?;
-        `;
-
-    db.query(strQry, [detail, req.params.id], (err) => {
-      if (err) throw err;
-      res.status(200).json({ msg: "A record was updated" });
+    detail.userPass = await hash(detail.userPass, 15);
+    const user = {
+      emailAdd: detail.emailAdd,
+      userPass: detail.userPass,
+    };
+    const createQuery = `INSERT INTO Users SET ?;`;
+    db.query(createQuery, [detail], (err) => {
+      if (err) {
+        res.status(401).json({
+          err,
+        });
+      } else {
+        const jwToken = createToken(user);
+        res.cookie("UserFoundInDatabase", jwToken, {
+          maxAge: 3600000,
+          httpOnly: true,
+        });
+        res.status(200).json({
+          msg: "A user record was saved.",
+        });
+      }
+    });
+  }
+  updateUser(req, res) {
+    const data = req.body;
+    if (data.userPass !== null || data.userPass !== undefined)
+      data.userPass = hashSync(data.userPass, 15);
+    const updateQuery = `UPDATE Users SET ? WHERE userID = ?;`;
+    db.query(updateQuery, [data, req.params.id], (err) => {
+      if (err) throw (err, console.log(err));
+      res.status(200).json({
+        msg: "A row was affected.",
+      });
     });
   }
   deleteUser(req, res) {
-    const strQry = `
-    DELETE FROM Users
-    WHERE userID = ?;
-    `;
-
-    db.query(strQry, [req.params.id], (err) => {
-      if (err) throw err;
-      res.status(200).json({ msg: "A record has been deleted" });
-    });
-  }
-  getUser(req, res) {
-    const strQry = `
-    SELECT userID, firstName, lastName, gender, cellphoneNum, emailAdd, userRole, userProfile, joinDate
-    FROM Users
-    WHERE userID = ?;    
-    `;
-
-    db.query(strQry, [req.params.id], (err, data) => {
-      if (err) throw err;
-      res.status(200).json({ result: data });
-    });
-  }
-  getUsers(req, res) {
-    const strQry = `
-    SELECT userID, firstName, lastName, gender, cellphoneNum, emailAdd, userRole, userProfile, joinDate
-    FROM Users;
-    `;
-
-    db.query(strQry, (err, data) => {
-      if (err) throw err;
-      res.status(200).json({ results: data });
-    });
-  }
-   forgotPassword(req, res) {
-    const detail = req.body;
-    if (detail.userPass != null || detail.userPass != undefined)
-      detail.userPass = hashSync(detail.userPass, 15);
-
-    const strQry = `
-        UPDATE Users 
-        SET ?
-        WHERE cellphoneNum = ? and emailAdd = ?;
-        `;
-
-    db.query(strQry, [detail, req.params.id], (err) => {
-      if (err) throw err;
-      res.status(200).json({ msg: "A record was updated" });
+    const deleteQuery = `DELETE FROM Users WHERE userID = ?;`;
+    db.query(deleteQuery, [req.params.id], (err) => {
+      if (err) throw (err, console.log(err));
+      res.status(200).json({
+        msg: "A record was removed from a database",
+      });
     });
   }
 }
 class Product {
+  fetchProducts(req, res) {
+    const fetchAllProducts = `SELECT id, prodName, prodDescription, category, price, prodQuantity, imgURL, userID 
+    FROM Products;`;
+    db.query(fetchAllProducts, (err, results) => {
+      if (err) throw (err, console.log(err));
+      res.status(200).json({
+        results: results,
+      });
+    });
+  }
+  fetchProduct(req, res) { 
+    const fetchProductQuery = `SELECT id, prodName, prodDescription, category, price, prodQuantity, imgURL, userID FROM Products WHERE id = ?;`;
+    db.query(fetchProductQuery, [req.params.id], (err, results) => {
+      if (err) throw (err, console.log(err));
+      res.status(200).json({
+        results: results,
+      });
+    });
+  }
   addProduct(req, res) {
-    const strQry = `
-        INSERT INTO Products
-        SET ?
-        `;
-    db.query(strQry, [req.body], (err) => {
+    const addProductQuery = `INSERT INTO Products SET ?;`;
+    db.query(addProductQuery, [req.body], (err) => {
       if (err) {
-        res.status(400).json({ err: "Unable to add a new product" });
+        res.status(400).json({
+          err: "Unable to insert a new record.",
+        }),
+          console.log(err);
       } else {
-        res.status(200).json({ msg: "Successfully added a new product" });
+        res.status(200).json({
+          msg: "Product saved",
+        });
       }
     });
   }
   updateProduct(req, res) {
-    const detail = req.body;
-    if (detail.userPass != null || detail.userPass != undefined)
-      detail.userPass = hashSync(detail.userPass, 15);
-
-    const strQry = `
-        UPDATE Products
-        SET ?
-        WHERE id = ?;
-        `;
-
-    db.query(strQry, [req.body, req.params.id], (err) => {
+    const updateQuery = `UPDATE Products SET ? WHERE id = ?;`;
+    db.query(updateQuery, [req.body, req.params.id], (err) => {
       if (err) {
-        res.status(400).json({ msg: "Unable to update the product" });
+        console.log(err);
+        res.status(400).json({
+          err: "Unable to update a record.",
+        });
       } else {
-        res.status(200).json({ msg: "A product has been updated" });
+        res.status(200).json({
+          msg: "Product updated",
+        });
       }
     });
   }
   deleteProduct(req, res) {
-    const strQry = `
-    DELETE FROM Products
-    WHERE id = ?;
-    `;
-
-    db.query(strQry, [req.params.id], (err) => {
-      if (err) throw err;
-      res.status(200).json({ msg: "A product has been deleted" });
-    });
-  }
-  getProduct(req, res) {
-    const strQry = `
-    SELECT id, prodName, prodDescription, category, price, prodQuantity, imgURL
-    FROM Products
-    WHERE id = ?;    
-    `;
-
-    db.query(strQry, [req.params.id], (err, data) => {
-      if (err) throw err;
-      res.status(200).json({ result: data });
-    });
-  }
-  getProducts(req, res) {
-    const strQry = `
-    SELECT id, prodName, prodDescription, category, price, prodQuantity, imgURL
-    FROM Products;
-    `;
-
-    db.query(strQry, (err, data) => {
-      if (err) throw err;
-      res.status(200).json({ results: data });
+    const deleteQuery = `DELETE FROM Products WHERE id = ?;`;
+    db.query(deleteQuery, [req.params.id], (err) => {
+      if (err)
+        res.status(400).json({
+          err: "The record was not found.",
+        });
+      res.status(200).json({
+        msg: "A product was deleted",
+      });
     });
   }
 }
-
 module.exports = {
-  Product,
   User,
+  Product
 };
