@@ -4,41 +4,80 @@ const { createToken } = require("../middleware/AuthenticationUser");
 
 
 class User {
-  login(req, res) {
-    const { emailAdd, password } = req.body;
-    const verifyQuery = `select userID, firstName, lastName, gender, cellphoneNumber, emailAdd, userPass, userRole, userProfile 
-    FROM Users 
-    where emailAdd = '${emailAdd}';`;
+  // login(req, res) {
+  //   const { emailAdd, password } = req.body;
+  //   const verifyQuery = `select userID, firstName, lastName, gender, cellphoneNumber, emailAdd, userPass, userRole, userProfile 
+  //   FROM Users 
+  //   where emailAdd = '${emailAdd}';`;
 
-    db.query(verifyQuery, async (err, data) => {
-      const userLog = data;
-      if (err) throw (err, console.log(err));
-      if (!data || data == null) {
-        res.status(401).json({
-          err: "You entered the wrong email address",
+  //   db.query(verifyQuery, async (err, data) => {
+  //     const userLog = data;
+  //     if (err) throw (err, console.log(err));
+  //     if (!data || data == null) {
+  //       res.status(401).json({
+  //         err: "You entered the wrong email address",
+  //       });
+  //     } else {
+  //       await compare(password, data[0].password, (cErr, cResult) => {
+  //         if (cErr) throw (cErr, console.log(cErr));
+  //         const jwToken = createToken({
+  //           emailAdd,
+  //           userPass,
+  //         });
+  //         if (cResult) {
+  //           res.status(200).json({
+  //             msg: "Logged In",
+  //             jwToken,
+  //             result: data,
+  //           });
+  //         } else {
+  //           res.status(401).json({
+  //             err: "You entered an invalid password or have not registered.",
+  //           });
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
+
+  login(req,res){
+    const {emailAdd, userPass}= req.body;
+    const strQry = `
+    SELECT * 
+    FROM Users
+    WHERE emailAd = '${emailAdd}';
+   `; 
+   db.query(strQry,async(err, data)=>{
+    if (err) throw err;
+    if (!data[0]|| data[0]== null){
+      res.status(200).json({err:"Incorrect email address"});
+    }else{
+      await compare(userPass, data[0].userPass,(cErr, cResult)=>{
+        if (cErr) throw cErr;
+        const token = createToken({
+          userPass,
+          emailAdd,
         });
-      } else {
-        await compare(password, data[0].password, (cErr, cResult) => {
-          if (cErr) throw (cErr, console.log(cErr));
-          const jwToken = createToken({
-            emailAdd,
-            userPass,
+        res.cookie("RightUser", token,{
+          maxAge:3600000,
+          httpOnly: true,
+        });
+        if (cResult){
+          res.status(200).json({
+            msg: "Logged In",
+            token,
+            result: data[0],
           });
-          if (cResult) {
-            res.status(200).json({
-              msg: "Logged In",
-              jwToken,
-              result: data,
-            });
-          } else {
-            res.status(401).json({
-              err: "You entered an invalid password or have not registered.",
-            });
-          }
-        });
-      }
-    });
+        }else{
+          res.status(200).json({
+            err:"Incorrect Password, try again or register",
+          });
+        }
+      });
+    }
+   });
   }
+  
   fetchUsers(req, res) {
     const fetchAllUsersQuery = `select firstName, lastName, gender, cellphoneNumber, emailAdd, userPass, userRole, userProfile 
     FROM Users;`;
@@ -170,6 +209,30 @@ class Product {
       res.status(200).json({
         msg: "A product was deleted",
       });
+    });
+  }
+  async createUser(req, res) {
+    const detail = req.body;
+    detail.userPass = await hash(detail.userPass, 15);
+    const user = {
+      userPass: detail.userPass,
+      emailAdd: detail.emailAdd,
+    };
+    const strQry = `
+        INSERT INTO Users
+        SET ?
+        `;
+    db.query(strQry, [detail], (err) => {
+      if (err) {
+        res.status(401).json({ err });
+      } else {
+        const token = createToken(user);
+        res.cookie("RightUser", token, {
+          httpOnly: true,
+          maxAge: 3600000,
+        });
+        res.status(200).json({ msg: "A new user has been created." });
+      }
     });
   }
 }
