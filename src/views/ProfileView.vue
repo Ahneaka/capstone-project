@@ -1,15 +1,17 @@
 <template>
    <body>
     <div class="bg-container d-flex justify-content-center">
-      <div class="card my-auto" style="width: 77rem; height: 35rem">
+      <div class="card my-auto" style="width: 50rem; height: 35rem">
         <div class="card-body">
 <div class="row">
   <div class="col">
     <div class="card-2" style="width:400px">
   <img class="card-img-top " src="https://i.postimg.cc/C1Rxfz5x/My-profile-orange-300x300.png" alt="Card image" style="height: 70%;">
-  </div>
+  <br>
   <div class="col"><h1>Username</h1><br><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.<br> Debitis in quibusdam facilis quae doloribus, atque animi assumenda amet facere,<br> omnis voluptatem asperiores necessitatibus eius odit <br>repudiandae iure placeat, possimus magni!</p></div>
-  <div class="col"></div>
+  
+</div>
+<div class="col"></div>
 
 </div>
 
@@ -52,15 +54,15 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 50px;
-  padding-left: 25px;
+  padding-top: 150px;
+  padding-left: 200px;
 }
 
 .flex-container {
   position: relative;
   right: 0;
   top: 80px;
-  float: left;
+  /* float: left; */
   display: flex;
   flex-direction: row;
   justify-content: left;

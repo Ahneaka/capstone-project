@@ -37,11 +37,12 @@ const routes = [
     }
   },
   {
-    path: '/single',
+    path: '/products/:id',
     name: 'single',
     component: function () {
       return import('../views/SingleProduct.vue')
-    }
+    },
+    props: true
   },
   {
     path: '/cart',

@@ -17,7 +17,10 @@
                 <h5 class="name">{{ item.prodName }}</h5>
                 <p class="description">{{ item.prodDescription }}</p>
                 <p class="price">R{{ item.price }}</p>
-                <router-link :to="{name: 'single', params: {id: item.id}}" ><a href="#" class="btn btn-primary">View more </a></router-link>
+                <router-link :to="{name: 'single', params: {id: item.id}}" ><a href="#" class="btn btn-secondary">View more </a></router-link>
+                <!-- <button class="btn-btn-secondary"> <router-link to="{name: '/single', params: {id: item.id}}"><a href="">View more</a></router-link>                  </button> -->
+
+
               </div>
             </div>
            
@@ -29,9 +32,7 @@
   </section>
 </div>
 
-<div v-else>
-  <something />
-</div>
+
     </body>
   </template>
 

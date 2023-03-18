@@ -2,6 +2,7 @@
     <body>
       
       <section>
+        
     <h1 class="heading animate__animated animate__zoomInUp">Users</h1>
     <button type="button" class="btn btn-edit mt-4 mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal2">
       Edit user
@@ -198,7 +199,8 @@
         </tbody>
       </table>
     </div>
-  </section>    
+  </section>
+   
 </body>
   </template>
 
@@ -207,6 +209,8 @@ import { useStore } from 'vuex';
 import { computed } from '@vue/runtime-core'
 
 export default {
+  name: 'Inventory',
+   
   setup() {
     const store = useStore();
     store.dispatch("fetchProducts")
@@ -226,10 +230,7 @@ export default {
 </script>
 
   <style scoped>
-   * {
-    box-sizing: border-box;
-    /* background-image: url(https://i.postimg.cc/SKrCDwCC/profile.jpg); */
-}
+
 section{
   padding-top: 120px;
 }

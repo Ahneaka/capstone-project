@@ -35,7 +35,7 @@ export default createStore({
   },
   actions: {
     async fetchUsers(context){
-      const res = await axios.get(`${renderLink}/Users`);
+      const res = await axios.get(`${renderLink}Users`);
       const {results, err} = await res.data;
       if (results){
         context.commit('setUsers', results)
@@ -74,13 +74,10 @@ export default createStore({
         context.commit('setError', err)
       }
     },
-    async fetchProduct(context, id){
-      const res = await axios.get(`${renderLink}/product/${id}`);
-      const {
-        result
-      } = await res.data;
-      console.log(result[0]);
-      context.commit('setProduct', result[0]);
+    async fetchProduct(context, id) {
+      const res = await axios.get(`${renderLink}product/${id}`);
+      const { results } = await res.data;
+      context.commit("setProduct", results[0]);
     },
     async register(context, payload) {
       const res = await axios.post(`${renderLink}/register`, payload);
@@ -91,7 +88,32 @@ export default createStore({
       } else {
         context.commit('setError',err)
       }
-    }
+    },
+    async login(context, payload){
+      console.log(payload);
+      axios.post("http://localhost:3030/login", payload)
+      // axios.post(`${renderURL}login`, payload)
+        .then(response => {
+          // Handle success.
+          // gets the whole response
+          console.log(response);
+          if(response.data.msg) {
+            // gets the msg
+            console.log(response.data.msg);
+            // gets the token
+            console.log(response.data.token);
+            // gets the user data
+            console.log(response.data.result);
+          } else {
+            // gets error message
+            console.log(response.data.err);
+          }
+          })
+          .catch(error => {
+          // Handle error.
+          console.log('An error occurred:', error);
+          });
+    },
          
   },
    

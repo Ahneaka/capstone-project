@@ -1,51 +1,43 @@
 <template>
-    <body>
-      <section>
-    <div data-aos="zoom-in">
-      <h1 class="heading animate__animated animate__zoomInUp">Product</h1>
-      <div class="container-fluid">
-        <div class="" id="cards"></div>
-        <div class="row">
-            <div class="col-3 card g-1 my-2 mx-2" >
-              <!-- <img src="" id="img" alt="short-surfboard"> -->
+  <body>
+    <section>
+      <div v-if="product" data-aos="zoom-in">
+        <h1 class="heading animate__animated animate__zoomInUp">Product</h1>
+        <div class="container-fluid">
+          <div class="" id="cards"></div>
+          <div class="row">
+            <div class="col-3 card g-1 my-2 mx-2">
               <div class="card-body">
+                <img :src="product.imgURL" alt="">
                 <h5 class="name">{{ product.prodName }}</h5>
                 <p class="description">{{ product.prodDescription }}</p>
                 <p class="price">R{{ product.price }}</p>
                 <a href="#" class="btn btn-primary">Add to checkout </a>
               </div>
             </div>
+          </div>
+        </div>
       </div>
-    </div>
-    </div>
-  </section>
-    </body>
-  </template>
-
-<script scoped>
-// import { useStore } from 'vuex';
-// import router from '@/router';
-// import {computed} from '@vue/runtime-core'
-
-// export default {
-//   setup() {
-//     const store = useStore();
-//     store.dispatch("fetchProduct", router.params.id);
-//     let product = computed(() => store.state.product);
-//     return{
-//       product,
-//     }
-//   }
-// }
-
-export default{
-  computed:{
-    product(){
+    </section>
+  </body>
+</template>
+<script>
+export default {
+  props: ['id'],
+  computed: {
+    product() {
       return this.$store.state.product
     }
   },
-  created(){
-    this.$store.dispatch('SingleProduct', this.$route.params.id)
-  }
+  mounted() {
+    this.$store.dispatch('fetchProduct', this.id)
+  },
 }
 </script>
+
+<style scoped>
+section{
+    padding-top: 5%;
+    
+}
+</style>
