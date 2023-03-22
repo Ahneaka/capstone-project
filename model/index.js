@@ -45,7 +45,7 @@ class User {
     const strQry = `
     SELECT * 
     FROM Users
-    WHERE emailAd = '${emailAdd}';
+    WHERE emailAdd = '${emailAdd}';
    `; 
    db.query(strQry,async(err, data)=>{
     if (err) throw err;
@@ -180,7 +180,7 @@ class Product {
       } else {
         res.status(200).json({
           msg: "Product saved",
-        });
+        }); 
       }
     });
   }
