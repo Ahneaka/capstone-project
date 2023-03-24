@@ -40,7 +40,7 @@ class User {
   //   });
   // }
 
-  login(req,res){
+  async login(req,res){
     const {emailAdd, userPass}= req.body;
     const strQry = `
     SELECT * 
