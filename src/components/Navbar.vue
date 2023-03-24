@@ -29,11 +29,11 @@
               <a class="page-scroll nav-link"><router-link to="/products">Products</router-link></a>
             </li>
             <li class="nav-item">
-              <a class="page-scroll nav-link"><router-link to="/cart">Cart</router-link></a>
+              <a class="page-scroll nav-link"><router-link to="/cart"><i class="fa-solid fa-cart-shopping"></i></router-link></a>
             </li>
 
             <li class="nav-item">
-              <a class="page-scroll nav-link"><router-link to="/Contact">Contact</router-link></a>
+              <a class="page-scroll nav-link"><router-link to="/Contact"><i class="fa-solid fa-phone"></i></router-link></a>
             </li>
           </ul>
         </div>

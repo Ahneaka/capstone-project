@@ -10,7 +10,7 @@
                 <input type="email" v-model="emailAdd" placeholder="Enter email" name="username" required>
                 <label for="pass"><b>Password</b></label>
                 <input type="password" v-model="userPass" placeholder="Enter Password" name="pass" required>
-                <router-link to="/home"><a href="">Login</a></router-link>
+               <a @click="login">Login</a>
               </div>
               <div class="container">
                 <button type="button" class="cancel">Cancel</button>

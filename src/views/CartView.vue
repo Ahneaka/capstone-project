@@ -1,21 +1,157 @@
 <template>
-    <body>
+  <body>
 
-    </body>
-  </template>
-  
-  <style scoped>
-   * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    /* background-image: url(https://i.postimg.cc/SKrCDwCC/profile.jpg); */
+    <section>
+
+
+
+
+      <h1 class="heading animate__animated animate__zoomInUp"><i class="fa-solid fa-cart-shopping"></i></h1>
+
+      <button type="button" class="btn btn-edit mt-4 mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+        Create New Product
+      </button>
+      <div class="container">
+        <section id="modal" class="admin-bg">
+          <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2"
+            aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title mx-auto me-3" id="exampleModalLabel2">New Product</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <input type="text" class="form-control input" id="name" placeholder="Name">
+                  </div>
+                  <div class="mb-3">
+                    <input type="text" class="form-control input" id="description" placeholder="Description">
+                  </div>
+                  <div class="mb-3">
+                    <input type="text" class="form-control input" id="price" placeholder="Price">
+                  </div>
+                  <div class="mb-3">
+                    <input type="text" class="form-control input" id="quantity" placeholder="Quantity">
+                  </div>
+                  <div class="mb-3">
+                    <input type="text" class="form-control input" id="image-url" placeholder="Image URL">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="add-btn">Add</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Quantity</th>
+              <th>price</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="product in products" :key="product.id">
+              <td>{{ product.prodName }}</td>
+              <td>{{ product.prodDescription }}</td>
+              <td>R{{ product.prodQuantity }}</td>
+              <td>R{{ product.price }}</td>
+              <td><button type="button" class="btn btn-edit mt-4 mb-4" data-bs-toggle="modal"
+                  :data-bs-target="`#exampleModal${product.id}`">
+                  Edit products
+                </button>
+                <div class="modal fade" :id="`exampleModal${product.id}`" tabindex="-1"
+                  aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title mx-auto me-3" id="exampleModalLabel2">New user</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="mb-3">
+                          <input type="text" class="form-control input" id="name" :value="product.prodName">
+                        </div>
+                        <div class="mb-3">
+                          <input type="text" class="form-control input" id="description" :value="product.prodDescription">
+                        </div>
+
+                        <div class="mb-3">
+                          <input type="text" class="form-control input" id="quantity" :value="product.prodQuantity">
+                        </div>
+
+                        <div class="mb-3">
+                          <input type="text" class="form-control input" id="price" :value="product.price">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-edit" id="add-btn">Add</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td><a href="#" class="btn btn-delete">Delete</a></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </body>
+</template>
+
+<!-- <script>
+import { useStore } from 'vuex';
+import { computed } from '@vue/runtime-core'
+
+export default {
+  name: 'Inventory',
+
+  setup() {
+    const store = useStore();
+    store.dispatch("fetchProducts")
+    store.dispatch("fetchUsers")
+    let products = computed(() => store.state.products);
+    let users = computed(() => store.state.users);
+    return {
+      products,
+      users
+    }
+
+  }
+}
+
+
+
+</script> -->
+
+<style scoped>
+section {
+  padding-top: 120px;
 }
 
 body {
-    background-image: url(https://i.postimg.cc/pVJLhHHQ/cloud.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    min-height: 100vh;
+  background-image: url(https://i.postimg.cc/R0wFZb29/pngegg-1.png);
+  background-color: rgba(255, 192, 203, 0.714);
+
+  background-size: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
 }
-  </style>
+
+.btn-edit {
+  background-color: rgba(242, 178, 58, 0.801);
+}
+
+.btn-delete {
+  background-color: rgb(128, 128, 128);
+}
+</style>

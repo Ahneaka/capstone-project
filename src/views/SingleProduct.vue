@@ -40,4 +40,58 @@ section{
     padding-top: 5%;
     
 }
+body {
+  background-image: url(https://i.postimg.cc/tRzCjrd5/140-1403845-bunga-png-japanese-cherry-blossom-png.png);
+  background-color: rgba(255, 192, 203, 0.714);
+  background-size: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding-top: 70px;
+}
+
+.container{
+  justify-content: center;
+  display: flex;
+  align-content: center;
+}
+
+img{
+  /* width: 100px; */
+  max-width: 300px;
+  /* height: 250px; */
+  min-height: 200px;
+}
+.card{
+  display: flex;
+  padding-top: 1em;
+  align-self: center;
+  justify-content: center;
+}
+@media screen and (max-width:768px) {
+
+img{
+  /* width: 250px; */
+  min-width: 150px;
+  max-width: 165px;
+  height: auto;
+  align-self: center;
+}
+
+.card{
+  min-width: 200px;
+  max-width: 165px;
+  height: auto;
+  align-self: center; 
+  justify-content: center;
+}
+
+body {
+  /* background-image: url(https://i.postimg.cc/tRzCjrd5/140-1403845-bunga-png-japanese-cherry-blossom-png.png); */
+  /* background-color: rgba(255, 192, 203, 0.714); */
+  background-size: center;
+  background-repeat: no-repeat;
+  /* min-height: 100vh; */
+  /* padding-top: 70px; */
+}
+}
 </style>
