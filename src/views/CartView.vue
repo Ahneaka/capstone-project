@@ -107,8 +107,8 @@
 
   </body>
 </template>
-
-<!-- <script>
+<script>
+/*
 import { useStore } from 'vuex';
 import { computed } from '@vue/runtime-core'
 
@@ -128,10 +128,10 @@ export default {
 
   }
 }
+*/
 
 
-
-</script> -->
+</script>
 
 <style scoped>
 section {
