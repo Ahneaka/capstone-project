@@ -1,50 +1,60 @@
 <template>
-  <body>
+  <body class="body">
     <div v-if="items">
       <section>
         <div data-aos="zoom-in animate__animated animate__zoomInUp">
           <h1 class="heading animate__animated animate__zoomInUp">Products</h1>
+          <button @click.prevent="sortPrice">Sort</button>
+
           <div class="container-fluid">
             <div class="row">
-              <div class="col g-1 my-2 mx-2" v-for="item in items" :key="item.id">
+              <div
+                class="col g-1 my-2 mx-2"
+                v-for="item in items"
+                :key="item.id"
+              >
                 <div class="card">
-
-                  <img :src="item.imgURL" alt="" class="card-img-top" style="width: 15rem; height: 250px;">
+                  <img
+                    :src="item.imgURL"
+                    alt=""
+                    class="card-img-top"
+                    style="width: 15rem; height: 250px"
+                  />
                   <div class="card-body">
-
                     <h5 class="name">{{ item.prodName }}</h5>
                     <p class="description">{{ item.prodDescription }}</p>
                     <p class="price">R{{ item.price }}</p>
-                    <router-link :to="{ name: 'single', params: { id: item.id } }"><a href="#" class="btn btn-secondary">View
-                        more </a></router-link>
-
-
+                    <router-link
+                      :to="{ name: 'single', params: { id: item.id } }"
+                      ><a href="#" class="btn btn-secondary"
+                        >View more
+                      </a></router-link
+                    >
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
         </div>
       </section>
     </div>
-    <div>
+    <div v-else>
       <something />
     </div>
-
+    <footer1 />
   </body>
 </template>
 
 <script>
-import axios from "axios"
-import something from '../components/Spinner.vue'
-
+import axios from "axios";
+import something from "../components/Spinner.vue";
+import Footer1 from "@/components/Footer.vue";
 export default {
-  name: 'Products',
+  name: "Products",
   components: {
-    something
+    something,
+    Footer1,
   },
- 
 
   data() {
     return {
@@ -56,9 +66,7 @@ export default {
   },
   methods: {
     async fetchProducts() {
-      const res = await axios.get(
-        `https://arcadian.onrender.com/products`
-      );
+      const res = await axios.get(`https://arcadian.onrender.com/products`);
       this.items = res.data.results;
       console.log(res);
     },
@@ -74,10 +82,8 @@ export default {
   /* background-image: url(https://i.postimg.cc/SKrCDwCC/profile.jpg); */
 }
 
- 
-
 .card-body {
-  height: 22rem;
+  height: 8rem;
 }
 
 .row {
@@ -91,5 +97,11 @@ export default {
 
 section {
   padding-top: 5%;
+}
+
+@media screen and (max-width: 650px) {
+  .body {
+    margin-top: 70px;
+  }
 }
 </style>

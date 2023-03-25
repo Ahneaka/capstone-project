@@ -1,40 +1,38 @@
 <template>
-    
-    <main id="container">
-        
-        <div class="dots">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        </div>
-        <div class="dots2">
-            <div class="dot2"></div>
-            <div class="dot2"></div>
-            <div class="dot2"></div>
-            <div class="dot2"></div>
-            <div class="dot2"></div>
-            <div class="dot2"></div>
-            <div class="dot2"></div>
-            <div class="dot2"></div>
-            <div class="dot2"></div>
-            <div class="dot2"></div>
-        </div>
-        <div class="circle"></div>
-    </main>
+  <main id="container">
 
+    <div class="dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    <div class="dots2">
+      <div class="dot2"></div>
+      <div class="dot2"></div>
+      <div class="dot2"></div>
+      <div class="dot2"></div>
+      <div class="dot2"></div>
+      <div class="dot2"></div>
+      <div class="dot2"></div>
+      <div class="dot2"></div>
+      <div class="dot2"></div>
+      <div class="dot2"></div>
+    </div>
+    <div class="circle"></div>
+  </main>
 </template>
 
 <script>
-    export default {
-        name: "something"
-    }
+export default {
+  name: "something"
+}
 </script>
 
 <style scoped>
@@ -202,6 +200,7 @@
 .dot2:nth-child(1) {
   animation-delay: 4.6s
 }
+
 /* #F44336;, #1E88E5, #FDD835; */
 @keyframes chomp1 {
   0% {
@@ -232,15 +231,19 @@
 }
 
 @keyframes move {
-  0%, 100% {
+
+  0%,
+  100% {
     left: -100px;
   }
 
-  0%, 48% {
+  0%,
+  48% {
     transform: rotateY(0deg);
   }
 
-  50%, 100% {
+  50%,
+  100% {
     transform: rotateY(180deg);
   }
 
@@ -250,15 +253,19 @@
 }
 
 @keyframes loader_4013 {
-  0%, 100% {
+
+  0%,
+  100% {
     border-top: 10px dotted #1E88E5;
   }
 
-  0%, 48% {
+  0%,
+  48% {
     border-top: 10px dotted #1E88E5;
   }
 
-  50%, 100% {
+  50%,
+  100% {
     border-top: 10px dotted #F44336;
   }
 
@@ -268,35 +275,42 @@
 }
 
 @keyframes dot1 {
-  0%,4% {
+
+  0%,
+  4% {
     background: #1E88E5;
     opacity: 1;
   }
 
-  5%,94% {
+  5%,
+  94% {
     background: #F44336;
     opacity: 0;
   }
 
-  95%,100% {
+  95%,
+  100% {
     background: #1E88E5;
     opacity: 1;
   }
 }
 
 @keyframes dot2 {
-  0%,4% {
+
+  0%,
+  4% {
     background: #F44336;
     opacity: 1;
   }
 
-  5%,94% {
+  5%,
+  94% {
     opacity: 0;
   }
 
-  95%,100% {
+  95%,
+  100% {
     background: #F44336;
     opacity: 1;
   }
-} 
-</style>
+}</style>

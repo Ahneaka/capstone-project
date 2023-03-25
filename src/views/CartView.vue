@@ -108,28 +108,15 @@
   </body>
 </template>
 <script>
-/*
-import { useStore } from 'vuex';
-import { computed } from '@vue/runtime-core'
 
+import Footer1 from "@/components/Footer.vue"
+// import Navbar from "@/components/Navbar.vue"
 export default {
-  name: 'Inventory',
-
-  setup() {
-    const store = useStore();
-    store.dispatch("fetchProducts")
-    store.dispatch("fetchUsers")
-    let products = computed(() => store.state.products);
-    let users = computed(() => store.state.users);
-    return {
-      products,
-      users
-    }
-
+  components: {
+    // Navbar,
+    Footer1
   }
 }
-*/
-
 
 </script>
 

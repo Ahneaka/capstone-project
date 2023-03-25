@@ -1,12 +1,22 @@
 <template>
-      <body>
+    <body>
+        <Footer1 />
+    </body>
+</template>
+<script>
+import Footer from "@/components/Footer.vue"
+//   import Navbar from "@/components/Navbar.vue"
+export default {
+    components: {
+        //   Navbar,
+        Footer
+    }
+}
 
-      </body>
-    
-  </template>
+</script>
 
-  <style scoped>
-   * {
+<style scoped>
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -18,6 +28,15 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     min-height: 100vh;
+
 }
-  </style>
+
+@media screen and (max-width: 650px) {
+
+    body {
+        margin-top: 70px;
+    }
+
+}
+</style>
 

@@ -1,62 +1,66 @@
 <template>
-   <body>
+  <body>
     <div class="bg-container d-flex justify-content-center">
       <div class="card my-auto" style="width: 50rem; height: 35rem">
         <div class="card-body">
-<div class="row">
-  <div class="col">
-    <div class="card-2" style="width:400px">
-  <img class="card-img-top " src="https://i.postimg.cc/C1Rxfz5x/My-profile-orange-300x300.png" alt="Card image" style="height: 70%;">
-  <br>
-  <div class="col"><h1>Username</h1><br><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.<br> Debitis in quibusdam facilis quae doloribus, atque animi assumenda amet facere,<br> omnis voluptatem asperiores necessitatibus eius odit <br>repudiandae iure placeat, possimus magni!</p></div>
-  
-</div>
-<div class="col"></div>
-
-</div>
-
-<div class="container">
-
-  <!-- <div class="card-2" style="width:350px">
-  <img class="card-img-top" src="https://i.postimg.cc/SKrCDwCC/profile.jpg" alt="Card image" style="height: 70%;"> -->
- 
-</div>
+          <div class="row">
+            <h2 style="text-align:center">User Profile Card</h2>
+            <div class="col">
 
 
+
+              <div class="card-2 class" style="width:400px">
+                <div class="image">
+                  <img src="https://i.postimg.cc/C1Rxfz5x/My-profile-orange-300x300.png" alt="John" style="height: 70%;">
+                </div>
+                <h1>John Doe</h1>
+                <p class="title">CEO & Founder, Example</p>
+                <p>Harvard University</p>
+
+                <p><button>Contact</button></p>
+              </div>
+
+            </div>
+
+            <div class="container">
+
+
+            </div>
+
+
+          </div>
         </div>
       </div>
     </div>
-      </div>
-     </body>  
-  </template>
-
-  <style scoped>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    /* background-image: url(https://i.postimg.cc/SKrCDwCC/profile.jpg); */
+    <Footer1 />
+  </body>
+</template>
+<script>
+import Footer1 from "@/components/Footer.vue"
+// import Navbar from "@/components/Navbar.vue"
+export default {
+  components: {
+    // Navbar,
+    Footer1
+  }
+}
+</script>
+<style scoped>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* background-image: url(https://i.postimg.cc/SKrCDwCC/profile.jpg); */
 }
 
 body {
-    background-image: url(https://i.postimg.cc/pVJLhHHQ/cloud.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    min-height: 100vh;
+  background-image: url(https://i.postimg.cc/pVJLhHHQ/cloud.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
 }
 
-.card-2{
-  /* float: left; */
-  /* width: 30%;
-  height: 300px; 
-  background: #ccc;
-  padding: 20px; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 150px;
-  padding-left: 200px;
-}
+
 
 .flex-container {
   position: relative;
@@ -72,6 +76,12 @@ body {
   padding-top: 5rem;
 }
 
+.col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .card {
   margin: auto;
   justify-content: center;
@@ -80,4 +90,4 @@ body {
   background-color: transparent !important;
   backdrop-filter: blur(10px);
 }
-  </style>
+</style>

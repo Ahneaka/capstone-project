@@ -10,6 +10,7 @@ export default createStore({
     product: null,
     spinner: true,
     error: null,
+    asc: true
   },
   getters: {},
   mutations: {
@@ -34,6 +35,7 @@ export default createStore({
     setMessage(state, value) {
       state.products = value;
     },
+
   },
   actions: {
     async fetchUsers(context) {
@@ -69,6 +71,7 @@ export default createStore({
       }
     },
 
+
     async fetchProducts(context) {
       const res = await axios.get(`${renderLink}products`);
       const { results, err } = await res.data;
@@ -88,17 +91,17 @@ export default createStore({
     async register(context, payload) {
       console.log(payload);
       fetch("https://arcadian.onrender.com/register", {
-          method: "POST",
-          mode: "cors",
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-          body: JSON.stringify(payload),
-        })
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify(payload),
+      })
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          router.push({name: '/'})
+          router.push({ name: '/' })
         })
         .catch((err) => {
           console.log(err);
@@ -108,13 +111,13 @@ export default createStore({
     async addProduct(context, payload) {
       console.log(payload);
       fetch("https://arcadian.onrender.com/product", {
-          method: "POST",
-          mode: "cors",
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-          body: JSON.stringify(payload),
-        })
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify(payload),
+      })
         .then((res) => res.json())
         .then((data) => {
           context.commit("setProducts", data);
@@ -123,14 +126,14 @@ export default createStore({
           console.log(err);
         })
     },
-    async deleteProduct(context, id){
+    async deleteProduct(context, id) {
       console.log(id);
       let res = await axios.delete(`${renderLink}product/${id}`);
       let msg = await res.data.msg;
-      if (msg){
+      if (msg) {
         context.dispatch('fetchProducts');
       }
-      if(msg){
+      if (msg) {
         context.commit("setMessage", msg);
       }
     },
@@ -144,38 +147,16 @@ export default createStore({
         },
         body: JSON.stringify(payload),
       })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data) {
-          context.commit("setMessage", data);
-          router.push({name: 'home'})
-        } 
-      });
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data) {
+            context.commit("setMessage", data);
+            router.push({ name: 'home' })
+          }
+        });
     },
   },
-  
-    // },
-  // axios.post(`${renderLink}login`, payload)
-  // // Handle success.
-  // // gets the whole response
-  // console.log(response);
-  // if(response.data.msg) {
-  //   // gets the msg
-  //   console.log(response.data.msg);
-  //   // gets the token
-  //   console.log(response.data.token);
-  //   // gets the user data
-  //   console.log(response.data.result);
-  // } else {
-  //   // gets error message
-  //   console.log(response.data.err);
-  // }
-  // })
-  // .catch(error => {
-  // // Handle error.
-  // console.log('An error occurred:', error);
-  // });
 
 
   modules: {},

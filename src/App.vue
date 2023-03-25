@@ -1,18 +1,17 @@
 <template>
   <div>
-     <Navbar/>
-      <router-view/>
-    </div>
-     
- 
+    <Navbar />
+    <router-view />
+    <!-- <Footer1/> -->
+  </div>
 </template>
 <script>
-import Footer from '@/components/Footer.vue'
+import Footer1 from "@/components/Footer.vue"
 import Navbar from "@/components/Navbar.vue"
 export default {
   components: {
     Navbar,
-    Footer,
+    Footer1,
   }
 }
 </script>
@@ -20,6 +19,7 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Cinzel+Decorative:wght@900&family=Press+Start+2P&family=Share+Tech+Mono&display=swap');
+
 #app {
   margin: 0;
   padding: 0;
@@ -27,7 +27,7 @@ export default {
   text-align: center;
 }
 
-.navbar{
+.navbar {
   overflow: hidden;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -49,8 +49,7 @@ nav a:hover {
   /* border-color: rgb(128, 128, 128); */
 }
 
-h1{
+h1 {
   font-family: 'Press Start 2P', cursive;
 }
-
 </style>

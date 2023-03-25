@@ -85,6 +85,7 @@ export default {
   box-sizing: border-box;
   /* background-image: url(https://i.postimg.cc/SKrCDwCC/profile.jpg); */
 }
+
 body {
   padding-top: 120px;
   background: url(https://i.postimg.cc/fWXgL1pm/pngegg.png)no-repeat;
@@ -93,6 +94,7 @@ body {
   background-repeat: no-repeat;
   min-height: 100vh;
 }
+
 section {
   padding-top: 5%;
 }

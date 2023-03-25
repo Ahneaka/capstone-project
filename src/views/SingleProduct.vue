@@ -2,7 +2,9 @@
   <body>
     <section>
       <div v-if="product" data-aos="zoom-in">
-        <h1 class="heading animate__animated animate__zoomInUp">Product</h1>
+        <div class="heading animate__animated animate__zoomInUp">
+          <h1>Product</h1>
+        </div>
         <div class="container-fluid">
           <div class="" id="cards"></div>
           <div class="row">
@@ -36,62 +38,72 @@ export default {
 </script>
 
 <style scoped>
-section{
-    padding-top: 5%;
-    
+section {
+  padding-top: 5%;
+
 }
+
 body {
   background-image: url(https://i.postimg.cc/tRzCjrd5/140-1403845-bunga-png-japanese-cherry-blossom-png.png);
   background-color: rgba(255, 192, 203, 0.714);
   background-size: center;
   background-repeat: no-repeat;
   min-height: 100vh;
-  padding-top: 70px;
+  padding-top: 30px;
 }
 
-.container{
+.container-fluid {
   justify-content: center;
   display: flex;
   align-content: center;
 }
 
-img{
+img {
   /* width: 100px; */
   max-width: 300px;
   /* height: 250px; */
   min-height: 200px;
 }
-.card{
+
+.card {
   display: flex;
   padding-top: 1em;
   align-self: center;
-  justify-content: center;
-}
-@media screen and (max-width:768px) {
-
-img{
-  /* width: 250px; */
-  min-width: 150px;
-  max-width: 165px;
-  height: auto;
-  align-self: center;
-}
-
-.card{
-  min-width: 200px;
-  max-width: 165px;
-  height: auto;
-  align-self: center; 
+  width: 100%;
   justify-content: center;
 }
 
-body {
-  /* background-image: url(https://i.postimg.cc/tRzCjrd5/140-1403845-bunga-png-japanese-cherry-blossom-png.png); */
-  /* background-color: rgba(255, 192, 203, 0.714); */
-  background-size: center;
-  background-repeat: no-repeat;
-  /* min-height: 100vh; */
-  /* padding-top: 70px; */
+.heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 18px;
 }
-}
-</style>
+
+@media screen and (max-width:650px) {
+
+  img {
+    /* width: 250px; */
+    min-width: 150px;
+    max-width: 165px;
+    height: auto;
+    align-self: center;
+  }
+
+  .card {
+    min-width: 200px;
+    max-width: 165px;
+    height: auto;
+    align-self: center;
+    justify-content: center;
+  }
+
+  body {
+    /* background-image: url(https://i.postimg.cc/tRzCjrd5/140-1403845-bunga-png-japanese-cherry-blossom-png.png); */
+    /* background-color: rgba(255, 192, 203, 0.714); */
+    background-size: center;
+    background-repeat: no-repeat;
+    /* min-height: 100vh; */
+    padding-top: 70px;
+  }
+}</style>
