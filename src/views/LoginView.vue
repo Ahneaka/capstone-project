@@ -10,7 +10,11 @@
                 <input type="email" v-model="emailAdd" placeholder="Enter email" name="username" required>
                 <label for="pass"><b>Password</b></label>
                 <input type="password" v-model="userPass" placeholder="Enter Password" name="pass" required>
-                <a @click="login">Login</a>
+                <!-- <a @click="login">Login</a> -->
+                <!-- <i class="fa-sharp fa-regular fa-gamepad-modern"></i> -->
+                <button class="btn-login"> <router-link to="/home"> <a @click="login">Login</a>
+                  </router-link></button>
+
               </div>
               <div class="container">
                 <button type="button" class="cancel">Cancel</button>
@@ -200,6 +204,9 @@ span.psw {
   transform-style: preserve-3d;
   transition: transform 0.5s;
 }
+/* .btn-login{
+  padding-top: 20%;
+} */
 
 .btn::before {
   content: "";
@@ -227,4 +234,5 @@ span.psw {
 
 .btn:hover {
   transform: rotateX(30deg) rotateZ(0);
-}</style>
+}
+</style>

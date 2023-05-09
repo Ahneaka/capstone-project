@@ -153,7 +153,7 @@
 <script>
 import { useStore } from 'vuex';
 import { computed } from '@vue/runtime-core'
-import AddProduct from '../components/AddProduct.vue';
+import AddProduct from '@/components/AddProduct.vue';
 import Footer1 from '@/components/Footer.vue'
 export default {
 
